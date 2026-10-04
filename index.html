@@ -1,12 +1,441 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My GitHub Page</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aiswarya Senthil</title>
+<meta name="description" content="Aiswarya Senthil is an undergraduate HCI researcher at Cornell studying human autonomy in human-AI interaction, spatial intelligence, and wellbeing.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛳</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Young+Serif&display=swap" rel="stylesheet">
+<style>
+  /* ---------- Tokens ---------- */
+  :root {
+    color-scheme: light;
+    --berry: #8E1F52;        /* dark pink: hero, headings, links */
+    --berry-deep: #6E1740;
+    --lavender: #CDB8F0;     /* light purple: contours, underlines, highlights */
+    --lavender-soft: #F4EFFC;
+    --white: #FFFFFF;
+    --blush: #FCF0F4;        /* light pink page background */
+    --ink: #2A1A24;
+    --ink-soft: #6B5664;
+    --rule: #F0D9E3;
+    --serif: "Young Serif", Georgia, "Times New Roman", serif;
+    --sans: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *, *::before, *::after { box-sizing: inherit; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); background: var(--berry); }
+  body {
+    margin: 0; background: var(--blush); color: var(--ink);
+    font: 400 1.0625rem/1.65 var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  a {
+    color: var(--berry); text-decoration-color: var(--lavender);
+    text-decoration-thickness: 2px; text-underline-offset: 3px;
+  }
+  a:hover { color: var(--berry-deep); text-decoration-color: var(--berry); }
+  :focus-visible { outline: 2px solid var(--berry); outline-offset: 3px; border-radius: 2px; }
+  img { max-width: 100%; display: block; }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; overflow: hidden; background: var(--berry); color: var(--white); }
+  .terrain { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .terrain path { fill: none; stroke: var(--lavender); stroke-width: 1.1; opacity: .38; }
+  .terrain path.index { stroke-width: 1.8; opacity: .6; }
+  .hero-inner {
+    position: relative; max-width: 1000px; margin: 0 auto;
+    padding: clamp(4rem, 12vw, 7.5rem) 1.5rem clamp(3rem, 8vw, 4.5rem);
+  }
+  h1 {
+    font: 400 clamp(2rem, 7.4vw, 5rem)/1.05 var(--serif);
+    margin: 0 0 1rem; letter-spacing: -0.01em; white-space: nowrap;
+  }
+  .lede { font-size: clamp(1.0625rem, 2.3vw, 1.35rem); line-height: 1.5; margin: 0 0 1.75rem; color: var(--lavender-soft); }
+  .links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin: 0; padding: 0; list-style: none; }
+  .hero a { color: var(--white); text-decoration-color: var(--lavender); }
+  .hero a:hover { text-decoration-color: var(--white); }
+  .hero :focus-visible { outline-color: var(--lavender); }
+
+
+  /* ---------- Sections ---------- */
+  main { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem 3rem; }
+  section {
+    display: grid; grid-template-columns: 16rem minmax(0, 1fr); gap: 0 2.5rem;
+    padding: 3.25rem 0; border-bottom: 1px solid var(--rule);
+  }
+  section:last-of-type { border-bottom: 0; }
+  h2 { font: 400 1.4rem/1.25 var(--serif); margin: 0.1rem 0 1rem; color: var(--berry); }
+  .col { max-width: 66ch; }
+  .col > p:first-child { margin-top: 0; }
+
+  .portrait-wrap { width: 11rem; }
+  .portrait {
+    width: 11rem; aspect-ratio: 1; border-radius: 50%; object-fit: cover;
+    border: 4px solid var(--lavender);
+  }
+  .portrait-fallback {
+    width: 11rem; aspect-ratio: 1; border-radius: 50%;
+    background: var(--white); border: 4px solid var(--lavender);
+    display: grid; place-items: center; color: var(--berry);
+    font: 400 3.5rem/1 var(--serif);
+  }
+  .about h2 { margin-top: 0; }
+
+  .news { list-style: none; margin: 0; padding: 0; }
+  .news li { display: grid; grid-template-columns: 8.5rem 1fr; gap: 1rem; padding: 0.45rem 0; }
+  .news time { color: var(--ink-soft); }
+
+  .project { margin: 0 0 2.25rem; }
+  .project:last-child { margin-bottom: 0; }
+  .project h3 { font: 700 1.125rem/1.35 var(--sans); margin: 0 0 0.35rem; }
+  .project p { margin: 0 0 0.4rem; }
+  .meta { color: var(--ink-soft); font-size: 0.9375rem; }
+  .status {
+    display: inline-block; font-size: 0.8125rem; font-weight: 700;
+    padding: 0.1rem 0.65rem; border-radius: 999px; margin-top: 0.2rem;
+    background: var(--white); color: var(--berry);
+  }
+  .sub { font: 400 1.125rem/1.3 var(--serif); color: var(--ink); margin: 2.25rem 0 1rem; }
+  .sub:first-child { margin-top: 0; }
+
+  .plain { margin: 0; padding-left: 1.1rem; }
+  .plain li { margin-bottom: 0.65rem; }
+  .plain li::marker { color: var(--berry); }
+
+  /* ---------- Life / gallery ---------- */
+  .gallery {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.9rem;
+    margin: 0 0 2rem; padding: 0; list-style: none;
+  }
+  .gallery li:first-child { grid-column: span 2; grid-row: span 2; }
+  .gallery figure { margin: 0; height: 100%; }
+  .gallery button {
+    display: block; width: 100%; height: 100%; padding: 0; border: 0;
+    background: var(--white); border-radius: 8px; overflow: hidden; cursor: zoom-in;
+    position: relative; text-align: left; color: inherit; font: inherit;
+  }
+  .gallery img { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .gallery li:first-child img { aspect-ratio: auto; min-height: 100%; }
+  .gallery .missing {
+    display: grid; place-items: center; aspect-ratio: 4 / 3; height: 100%; padding: 1rem;
+    color: var(--ink-soft); font-size: 0.875rem; text-align: center;
+    border: 2px dashed var(--lavender); border-radius: 8px; cursor: default;
+  }
+  .gallery figcaption {
+    position: absolute; left: 0; right: 0; bottom: 0; padding: 1.5rem 0.75rem 0.6rem;
+    font-size: 0.875rem; line-height: 1.35; color: var(--white);
+    background: linear-gradient(to top, rgba(62, 12, 36, .85), rgba(62, 12, 36, 0));
+  }
+  .facts { margin: 0; padding: 0; list-style: none; }
+  .facts li { display: grid; grid-template-columns: 2rem 1fr; margin-bottom: 0.6rem; }
+  h2 { display: flex; align-items: baseline; gap: 0.45rem; align-self: start; }
+  h2 .emoji { flex: none; }
+
+  dialog {
+    max-width: min(92vw, 1000px); max-height: 90vh; padding: 0; border: 0;
+    border-radius: 10px; background: var(--white); color: var(--ink);
+  }
+  dialog::backdrop { background: rgba(62, 12, 36, .75); }
+  dialog img { max-height: 78vh; width: auto; margin: 0 auto; }
+  dialog p { margin: 0; padding: 0.75rem 1rem 1rem; }
+  dialog .close {
+    position: absolute; top: 0.5rem; right: 0.5rem; border: 0; border-radius: 999px;
+    background: var(--white); color: var(--berry); font: 700 0.875rem var(--sans);
+    padding: 0.35rem 0.8rem; cursor: pointer;
+  }
+
+  /* ---------- Acknowledgements ---------- */
+  .people { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.4rem 2rem; }
+  .people span { color: var(--ink-soft); }
+
+  footer { background: var(--berry); color: var(--white); }
+  footer p { max-width: 1000px; margin: 0 auto; padding: 1.75rem 1.5rem 2.25rem; font-size: 0.875rem; }
+
+  @media (max-width: 760px) {
+    section { grid-template-columns: 1fr; }
+    .portrait-wrap, .portrait, .portrait-fallback { width: 8.5rem; }
+    .portrait-wrap { margin-bottom: 1.5rem; }
+    .portrait-fallback { font-size: 2.75rem; }
+    .news li { grid-template-columns: 1fr; gap: 0; padding: 0.55rem 0; }
+    .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .people { grid-template-columns: 1fr; }
+    .terrain { opacity: .7; }
+  }
+</style>
 </head>
 <body>
-  <h1>Hello, World!</h1>
-  <p>This is my very first GitHub Pages site.</p>
+
+<header class="hero">
+  <svg class="terrain" aria-hidden="true" preserveAspectRatio="xMidYMid slice"></svg>
+
+  <div class="hero-inner">
+    <h1>Aiswarya Senthil</h1>
+    <p class="lede">Researcher · Creative Technologist · Innovator</p>
+    <ul class="links">
+      <li><a href="mailto:as4467@cornell.edu">Email</a></li>
+      <li><a href="cv.pdf">CV</a></li>
+      <li><a href="https://www.linkedin.com/in/aiswarya-senthil-56a47323b">LinkedIn</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <section class="about" aria-labelledby="about-h">
+    <div class="portrait-wrap">
+      <!-- Save your headshot as photos/headshot.jpg (a square crop looks best) -->
+      <img class="portrait" src="photos/headshot.jpg" alt="Aiswarya Senthil"
+           onerror="this.outerHTML='<div class=&quot;portrait-fallback&quot; aria-hidden=&quot;true&quot;>AS</div>'">
+    </div>
+    <div class="col">
+      <h2 id="about-h"><span class="emoji" aria-hidden="true">👋🏽</span>About</h2>
+      <p>I'm a junior at Cornell University studying Cognitive Science and Information Science, and I'm working toward a PhD in human-computer interaction. I investigate the intersection of cognition and computation to build technology that improves the human experience.</p>
+      <p>Much of my work so far designs immersive VR and AR interventions for challenges in digital health, accessibility, and education. I'm now expanding into spatial intelligence and AI safety: what do we lose when we hand our thinking off to machines, and how can we build systems that protect people's autonomy instead of replacing their judgment? Across all of it, I'm committed to technology that puts human wellbeing and social good first.</p>
+      <p>At Cornell, I work with <a href="https://cals.cornell.edu/andrea-stevenson-won">Dr. Andrea Stevenson Won</a> in the Virtual Embodiment Lab and with <a href="https://www.human.cornell.edu/people/sk3268">Dr. Saleh Kalantari</a> in the <a href="https://dail.human.cornell.edu/">Design + Augmented Intelligence Lab</a>. I've been an NSF REU fellow twice: in human-centered computing at the University of Minnesota, and in human-computer interaction at Carnegie Mellon's <a href="https://hcii.cmu.edu/">Human-Computer Interaction Institute</a>.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="news-h">
+    <h2 id="news-h"><span class="emoji" aria-hidden="true">📰</span>News</h2>
+    <ul class="news col">
+      <li><time>October 2026</time><span>Starting participant collection for my Guided Immersion study in the Virtual Embodiment Lab, and our SCAMP red-teaming paper is nearing submission.</span></li>
+      <li><time>July 2026</time><span>Presented SCAMP at the CMU HCII REU poster session.</span></li>
+      <li><time>May 2026</time><span>Gave a poster and talk on Guided Immersion at the Cornell Undergraduate Research Board Spring Symposium.</span></li>
+      <li><time>January 2026</time><span>Joined the Virtual Embodiment Lab and became a peer mentor in the Cornell Undergraduate Research Board Peer Mentorship Program.</span></li>
+      <li><time>August 2025</time><span>Joined the SERVE project in the Design + Augmented Intelligence Lab, and Cornell's Creative Technology Lab at the Center for Teaching Innovation.</span></li>
+      <li><time>August 2025</time><span>Presented Guided Immersion at the University of Minnesota Summer Undergraduate Research Expo.</span></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="research-h">
+    <h2 id="research-h"><span class="emoji" aria-hidden="true">🔬</span>Research</h2>
+    <div class="col">
+      <article class="project">
+        <h3>SCAMP: Scaffolding Creative Adversarial Multi-turn Prompting for Red-Teaming Generative AI</h3>
+        <p>A prototype tool that helps human red teamers probe AI chatbots for safety weaknesses across multi-turn conversations, grounded in learning-science research on scaffolding and metacognition. I designed and iteratively tested the prototype, ran feasibility tests on manipulation tactics like roleplay framing and false authority claims, and led feedback sessions that shaped its redesign.</p>
+        <p class="meta">With Alice Qian, Matheus Maldaner, Wesley Deng, Hong Shen, and Laura Dabbish. NSF REU, Carnegie Mellon HCII.</p>
+        <span class="status">Nearing submission, Fall 2026</span>
+      </article>
+
+      <article class="project">
+        <h3>Guided Immersion: The Impact of a Preamble in Virtual Nature Experiences for Stress and Attentional Fatigue</h3>
+        <p>Does a short guided introduction before entering virtual nature deepen stress recovery and attention restoration? I built the study in Unreal Engine 5 on the Meta Quest 3, logging head motion at 10 Hz alongside heart rate, skin conductance, and surveys. The project started at my Minnesota REU, and I'm now leading it as first author at Cornell, including writing the IRB protocol.</p>
+        <p class="meta">With Andrea Stevenson Won and Victoria Interrante. Virtual Embodiment Lab, Cornell, continued from the University of Minnesota VR Lab.</p>
+        <span class="status">Starting participant collection, Fall 2026</span>
+      </article>
+
+      <article class="project">
+        <h3>SERVE: A Social Engaging Restorative Virtual Environment for Older Adults</h3>
+        <p>A VR intervention, in collaboration with Weill Cornell Medicine, that supports social engagement and wellbeing for older adults with mild cognitive impairment. I design the tutorial that teaches VR locomotion to first-time users, analyze user testing sessions to find usability friction, and prepare 3D hospital environments in Blender.</p>
+        <p class="meta">With Armin Mostafavi and Saleh Kalantari. Design + Augmented Intelligence Lab, Cornell.</p>
+        <span class="status">Ongoing since Fall 2025</span>
+      </article>
+
+      <article class="project">
+        <h3>Virtual Embodiment and Pain</h3>
+        <p>A study of whether out-of-body experiences in VR can modulate pain, as a nonpharmacological approach for digital therapeutics. I collected data in psychophysical sessions using a calibrated thermal device.</p>
+        <p class="meta">Virtual Embodiment Lab, Cornell.</p>
+        <span class="status">Data collected, Spring 2026</span>
+      </article>
+
+      <article class="project">
+        <h3>Behavior in Shared Virtual Spaces</h3>
+        <p>A study of how shared virtual environments shape the ways people move and act together. I collected data by facilitating live multi-user VR sessions.</p>
+        <p class="meta">Virtual Embodiment Lab, Cornell.</p>
+        <span class="status">Data collected, Spring 2026</span>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="build-h">
+    <h2 id="build-h"><span class="emoji" aria-hidden="true">🛠️</span>Design and Building</h2>
+    <div class="col">
+      <article class="project">
+        <h3>XR Anatomy for Veterinary Medicine</h3>
+        <p>As project manager, I lead a team of designers and developers working with Professor Bill Ryerson to bring 3D photogrammetry models of animal specimens into VR and AR headsets, so veterinary students can layer dissection stages and take organs apart and put them back together.</p>
+        <p class="meta">Creative Technology Lab, Center for Teaching Innovation, Cornell.</p>
+        <span class="status">Ongoing since Spring 2026</span>
+      </article>
+
+      <article class="project">
+        <h3>Accessible VR Nature Experiences with Táhila Moss</h3>
+        <p>Táhila Moss is an Indigenous artist, National Geographic Explorer, and collaborator of the Virtual Embodiment Lab who brings her 360° nature films to K-12 students, Indigenous communities, and older adults. I'm designing an accessible app for these nature experiences, built for Indigenous communities and older adults in the greater Finger Lakes region, and I analyze participant feedback to shape it.</p>
+        <p class="meta">With Táhila Moss, in collaboration with the Virtual Embodiment Lab, Cornell.</p>
+        <span class="status">Ongoing</span>
+      </article>
+
+      <article class="project">
+        <h3>XR in Cornell Classrooms</h3>
+        <p>Deploying course-specific VR and AR tools in anatomy and physiology, cell biology, and mechanical engineering, working with instructors and students in class to test and refine the learning modules.</p>
+        <p class="meta">Creative Technology Lab, Center for Teaching Innovation, Cornell.</p>
+        <span class="status">Ongoing since Fall 2025</span>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="mentoring-h">
+    <h2 id="mentoring-h"><span class="emoji" aria-hidden="true">🤝🏽</span>Leadership, Mentorship, and Service</h2>
+    <div class="col">
+      <article class="project">
+        <h3>Cornell Undergraduate Research Board Peer Mentorship Program</h3>
+        <p>As a peer mentor, I help students from underrepresented backgrounds, especially women of color, find research positions in male-dominated fields. I guide mentees through cold outreach to labs, NSF REU applications, and personal statements. Eight of my ten mentees this year are students of color.</p>
+        <span class="status">Since January 2026</span>
+      </article>
+
+      <article class="project">
+        <h3>LPGA*USGA Girls Golf</h3>
+        <p>I was selected as 1 of 13 National eLeader Directors out of 400+ eLeaders nationwide, working with national headquarters on diversity and inclusion strategy, membership growth, and programming for 90,000+ members across 500+ sites. Before that, as Head eLeader for the Greater Union site, I led a team of 10 eLeaders, mentored 60+ girls ages 6 to 17, and organized a recruitment event where 40% of about 70 attendees were new to golf. I now coach and advise the site, reviewing and improving its curriculum each season.</p>
+        <span class="status">Since March 2022</span>
+      </article>
+
+      <article class="project">
+        <h3>Conrad Challenge</h3>
+        <p>Mentoring a high school team designing human-AI systems for the Conrad Challenge.</p>
+        <span class="status">Ongoing</span>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="life-h">
+    <h2 id="life-h"><span class="emoji" aria-hidden="true">📸</span>Life</h2>
+    <div class="col">
+      <!-- Save photos as photos/life-1.jpg through photos/life-6.jpg and edit the captions below.
+           The first photo shows up largest. Any photo that isn't uploaded yet is simply hidden. -->
+      <ul class="gallery">
+        <li><figure><button type="button"><img src="photos/life-1.jpg" alt="Presenting my SCAMP poster at Carnegie Mellon"><figcaption>Presenting SCAMP at CMU, July 2026</figcaption></button></figure></li>
+        <li><figure><button type="button"><img src="photos/life-2.jpg" alt="Presenting the Guided Immersion poster at the University of Minnesota"><figcaption>Minnesota research expo, 2025</figcaption></button></figure></li>
+        <li><figure><button type="button"><img src="photos/life-3.jpg" alt="Working in VR in the lab"><figcaption>In the headset</figcaption></button></figure></li>
+        <li><figure><button type="button"><img src="photos/life-4.jpg" alt="Coaching at a Girls Golf clinic"><figcaption>Girls Golf clinic</figcaption></button></figure></li>
+        <li><figure><button type="button"><img src="photos/life-5.jpg" alt="Speaking at the CURB Spring Symposium"><figcaption>CURB Spring Symposium</figcaption></button></figure></li>
+        <li><figure><button type="button"><img src="photos/life-6.jpg" alt="Ithaca"><figcaption>Around Ithaca</figcaption></button></figure></li>
+      </ul>
+
+      <h3 class="sub">A few things about me</h3>
+      <ul class="facts">
+        <li><span aria-hidden="true">⛳</span><span>I've played golf for 15 years and captained my high school's boys' varsity team as its only girl.</span></li>
+        <li><span aria-hidden="true">🗣️</span><span>I'm a native Tamil speaker and speak a bit of Spanish.</span></li>
+        <li><span aria-hidden="true">🧳</span><span>I've lived in five different places in the last two years: my home in Jersey, Wellesley and Boston (MA), Minneapolis (MN), Ithaca (NY), and Pittsburgh (PA).</span></li>
+        <li><span aria-hidden="true">☕</span><span>I love Snoopy, coffee, and cars!</span></li>
+        <li><span aria-hidden="true">🎹</span><span>I've performed solo at Carnegie Hall twice: once for vocal performance and once for piano.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="ack-h">
+    <h2 id="ack-h"><span class="emoji" aria-hidden="true">❤️</span>Acknowledgements</h2>
+    <div class="col">
+      <p>None of this work would exist without the mentors who took a chance on me, taught me how research is done, and keep pushing me to do it well.</p>
+      <ul class="people">
+        <li><a href="https://cals.cornell.edu/andrea-stevenson-won">Andrea Stevenson Won</a> <span>Cornell</span></li>
+        <li><a href="https://www.human.cornell.edu/people/sk3268">Saleh Kalantari</a> <span>Cornell</span></li>
+        <li><a href="https://armin-mos.com/">Armin Mostafavi</a> <span>Cornell</span></li>
+        <li><a href="https://www.aliceqian.com/">Alice Qian</a> <span>Carnegie Mellon</span></li>
+        <li><a href="https://hcii.cmu.edu/people/faculty/laura-dabbish">Laura Dabbish</a> <span>Carnegie Mellon</span></li>
+        <li><a href="https://www.andrew.cmu.edu/user/hongs/">Hong Shen</a> <span>Carnegie Mellon</span></li>
+        <li><a href="https://www-users.cse.umn.edu/~interran">Victoria Interrante</a> <span>University of Minnesota</span></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Research supported in part by the National Science Foundation. Last updated October 2026.</p>
+</footer>
+
+<dialog id="viewer" aria-label="Photo viewer">
+  <button class="close" type="button">Close</button>
+  <img alt="">
+  <p></p>
+</dialog>
+
+<script>
+(function () {
+  /* ----- Topographic green in the header ----- */
+  const svg = document.querySelector('.terrain');
+  const hero = document.querySelector('.hero');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function rng(seed) {
+    return function () {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+
+  let animated = false;
+  function draw() {
+    const w = hero.clientWidth, h = hero.clientHeight;
+    svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    svg.innerHTML = '';
+    const rand = rng(1531);
+    const cx = w > 760 ? w * 0.76 : w * 0.82;
+    const cy = h * 0.52;
+    const waves = Array.from({ length: 4 }, (_, i) => ({ k: i + 2, a: 0.05 + rand() * 0.07, p: rand() * Math.PI * 2 }));
+    const tilt = rand() * Math.PI;
+    const step = 26, rings = Math.ceil(Math.hypot(w, h) / step);
+
+    for (let r = 1; r <= rings; r++) {
+      const base = r * step;
+      let d = '';
+      for (let i = 0; i <= 160; i++) {
+        const th = (i / 160) * Math.PI * 2;
+        let m = 1;
+        for (const wv of waves) m += wv.a * Math.sin(wv.k * th + wv.p + r * 0.09);
+        const rx = base * m * 1.25, ry = base * m * 0.85;
+        const x = cx + rx * Math.cos(th) * Math.cos(tilt) - ry * Math.sin(th) * Math.sin(tilt);
+        const y = cy + rx * Math.cos(th) * Math.sin(tilt) + ry * Math.sin(th) * Math.cos(tilt);
+        d += (i ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1);
+      }
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', d + 'Z');
+      if (r % 5 === 0) path.classList.add('index');
+      svg.appendChild(path);
+      if (!reduce && !animated && path.animate) {
+        const len = path.getTotalLength();
+        path.style.strokeDasharray = len;
+        path.animate(
+          [{ strokeDashoffset: len }, { strokeDashoffset: 0 }],
+          { duration: 1400, delay: r * 45, easing: 'cubic-bezier(.3,.6,.2,1)', fill: 'both' }
+        );
+      }
+    }
+    animated = true;
+  }
+  let t;
+  window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(draw, 150); });
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(draw);
+
+  /* ----- Gallery: placeholders for missing photos, click to enlarge ----- */
+  const viewer = document.getElementById('viewer');
+  const vImg = viewer.querySelector('img');
+  const vCap = viewer.querySelector('p');
+
+  document.querySelectorAll('.gallery button').forEach(btn => {
+    const img = btn.querySelector('img');
+    const cap = btn.querySelector('figcaption').textContent;
+    // A photo that hasn't been uploaded yet is hidden, so visitors never see an empty slot
+    const showMissing = () => {
+      const gallery = btn.closest('.gallery');
+      btn.closest('li').remove();
+      if (gallery && !gallery.children.length) gallery.remove();
+    };
+    if (img.complete && img.naturalWidth === 0) showMissing();
+    else img.addEventListener('error', showMissing);
+    btn.addEventListener('click', () => {
+      vImg.src = img.src; vImg.alt = img.alt; vCap.textContent = cap;
+      viewer.showModal();
+    });
+  });
+  viewer.querySelector('.close').addEventListener('click', () => viewer.close());
+  viewer.addEventListener('click', e => { if (e.target === viewer) viewer.close(); });
+})();
+</script>
 </body>
 </html>
