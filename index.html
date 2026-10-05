@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Aiswarya Senthil</title>
 <meta name="description" content="Aiswarya Senthil is an undergraduate HCI researcher at Cornell studying human autonomy in human-AI interaction, spatial intelligence, and wellbeing.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌺</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛳</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Young+Serif&display=swap" rel="stylesheet">
@@ -110,28 +110,29 @@
 
   /* ---------- Life / gallery ---------- */
   .gallery {
-    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.9rem;
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: 9.5rem; grid-auto-flow: dense; gap: 0.75rem;
     margin: 0 0 2rem; padding: 0; list-style: none;
   }
-  .gallery li:first-child { grid-column: span 2; grid-row: span 2; }
+  /* Slot shapes: big = 2x2, wide = 2x1, tall = 1x2, plain li = 1x1 */
+  .gallery .big  { grid-column: span 2; grid-row: span 2; }
+  .gallery .wide { grid-column: span 2; }
+  .gallery .tall { grid-row: span 2; }
   .gallery figure { margin: 0; height: 100%; }
   .gallery button {
     display: block; width: 100%; height: 100%; padding: 0; border: 0;
     background: var(--white); border-radius: 8px; overflow: hidden; cursor: zoom-in;
     position: relative; text-align: left; color: inherit; font: inherit;
   }
-  .gallery img { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
-  .gallery li:first-child img { aspect-ratio: auto; min-height: 100%; }
-  .gallery .missing {
-    display: grid; place-items: center; aspect-ratio: 4 / 3; height: 100%; padding: 1rem;
-    color: var(--ink-soft); font-size: 0.875rem; text-align: center;
-    border: 2px dashed var(--lavender); border-radius: 8px; cursor: default;
-  }
+  .gallery img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+  .gallery button:hover img { transform: scale(1.03); }
   .gallery figcaption {
     position: absolute; left: 0; right: 0; bottom: 0; padding: 1.5rem 0.75rem 0.6rem;
     font-size: 0.875rem; line-height: 1.35; color: var(--white);
     background: linear-gradient(to top, rgba(62, 12, 36, .85), rgba(62, 12, 36, 0));
   }
+  .gallery figcaption:empty { display: none; }
+  @media (prefers-reduced-motion: reduce) { .gallery img { transition: none; } }
   .facts { margin: 0; padding: 0; list-style: none; }
   .facts li { display: grid; grid-template-columns: 2rem 1fr; margin-bottom: 0.6rem; }
   h2 { display: flex; align-items: baseline; gap: 0.45rem; align-self: start; }
@@ -163,7 +164,7 @@
     .portrait-wrap { margin-bottom: 1.5rem; }
     .portrait-fallback { font-size: 2.75rem; }
     .news li { grid-template-columns: 1fr; gap: 0; padding: 0.55rem 0; }
-    .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 8rem; }
     .people { grid-template-columns: 1fr; }
     .terrain { opacity: .7; }
   }
@@ -304,15 +305,24 @@
   <section aria-labelledby="life-h">
     <h2 id="life-h"><span class="emoji" aria-hidden="true">📸</span>Life</h2>
     <div class="col">
-      <!-- Save photos as photos/life-1.jpg through photos/life-6.jpg and edit the captions below.
-           The first photo shows up largest. Any photo that isn't uploaded yet is simply hidden. -->
+      <!-- Gallery: save photos as photos/life-1.jpg through photos/life-12.jpg.
+           Slot shapes: life-1 is the big square; wide slots (5, 9, 12) suit landscape photos;
+           tall slots (2, 7) suit portrait photos; the rest are small squares.
+           Edit each alt="" (a short description for screen readers) and caption between <figcaption></figcaption>.
+           An empty caption is hidden, and any photo that isn't uploaded yet is hidden too. -->
       <ul class="gallery">
-        <li><figure><button type="button"><img src="photos/life-1.jpg" alt="Presenting my SCAMP poster at Carnegie Mellon"><figcaption>Presenting SCAMP at CMU, July 2026</figcaption></button></figure></li>
-        <li><figure><button type="button"><img src="photos/life-2.jpg" alt="Presenting the Guided Immersion poster at the University of Minnesota"><figcaption>Minnesota research expo, 2025</figcaption></button></figure></li>
+        <li class="big"><figure><button type="button"><img src="photos/life-1.jpg" alt="Presenting my SCAMP poster at Carnegie Mellon"><figcaption>Presenting SCAMP at CMU, July 2026</figcaption></button></figure></li>
+        <li class="tall"><figure><button type="button"><img src="photos/life-2.jpg" alt="Presenting the Guided Immersion poster at the University of Minnesota"><figcaption>Minnesota research expo, 2025</figcaption></button></figure></li>
         <li><figure><button type="button"><img src="photos/life-3.jpg" alt="Working in VR in the lab"><figcaption>In the headset</figcaption></button></figure></li>
         <li><figure><button type="button"><img src="photos/life-4.jpg" alt="Coaching at a Girls Golf clinic"><figcaption>Girls Golf clinic</figcaption></button></figure></li>
-        <li><figure><button type="button"><img src="photos/life-5.jpg" alt="Speaking at the CURB Spring Symposium"><figcaption>CURB Spring Symposium</figcaption></button></figure></li>
+        <li class="wide"><figure><button type="button"><img src="photos/life-5.jpg" alt="Speaking at the CURB Spring Symposium"><figcaption>CURB Spring Symposium</figcaption></button></figure></li>
         <li><figure><button type="button"><img src="photos/life-6.jpg" alt="Ithaca"><figcaption>Around Ithaca</figcaption></button></figure></li>
+        <li class="tall"><figure><button type="button"><img src="photos/life-7.jpg" alt="Photo 7"><figcaption></figcaption></button></figure></li>
+        <li><figure><button type="button"><img src="photos/life-8.jpg" alt="Photo 8"><figcaption></figcaption></button></figure></li>
+        <li class="wide"><figure><button type="button"><img src="photos/life-9.jpg" alt="Photo 9"><figcaption></figcaption></button></figure></li>
+        <li><figure><button type="button"><img src="photos/life-10.jpg" alt="Photo 10"><figcaption></figcaption></button></figure></li>
+        <li><figure><button type="button"><img src="photos/life-11.jpg" alt="Photo 11"><figcaption></figcaption></button></figure></li>
+        <li class="wide"><figure><button type="button"><img src="photos/life-12.jpg" alt="Photo 12"><figcaption></figcaption></button></figure></li>
       </ul>
 
       <h3 class="sub">A few things about me</h3>
